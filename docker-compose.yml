@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  
+  crontab:
+    container_name: docker-crontab
+    image: cismet/docker-crontab
+    build: .
+    volumes:
+    - ./crontab:/crontab:ro    # single file
+    - ./crontabs:/crontabs:ro  # multiple files
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: Europe/Berlin
+      CRONTAB: |-
+        * * * * * echo "execution from environment variable"
